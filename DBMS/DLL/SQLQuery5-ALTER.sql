@@ -1,0 +1,5 @@
+USE PV_319_DLL;
+GO
+
+ALTER TABLE Teachers
+ADD work_sience DATE NOT NULL;
