@@ -1,0 +1,5 @@
+USE PV_319_Import
+GO 
+DECLARE @date AS DATE = DATEFROMPARTS(2025,05,01);
+
+PRINT(@date)
