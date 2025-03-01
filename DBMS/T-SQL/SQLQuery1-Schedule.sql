@@ -1,16 +1,21 @@
 USE PV_319_Import;
 GO
-
+ALTER PROCEDURE dbo.sp_SetScheduleForStacionarGroup
+@group_name			NVARCHAR(16),
+@discipline_name		NVARCHAR(150),
+@teacher_last_name	NVARCHAR(50),
+@start_date			DATE,
+@time				TIME(0)
+AS
+BEGIN
 SET DATEFIRST 1;
 
-DECLARE @group				AS	INT			=	(SELECT group_id				FROM Groups			WHERE group_name = N'PV_319');
-DECLARE	@discipline			AS	SMALLINT		=	(SELECT discipline_id		FROM Disciplines		WHERE discipline_name LIKE N'Объектно-ориентированное программирование%');
-DECLARE @teacher				AS	SMALLINT		=	(SELECT teacher_id			FROM Teachers		WHERE first_name = N'Олег');
-DECLARE @start_date			AS	DATE			=	N'2024-06-01';
+DECLARE @group				AS	INT			=	(SELECT group_id				FROM Groups			WHERE group_name = @group_name);
+DECLARE	@discipline			AS	SMALLINT		=	(SELECT discipline_id		FROM Disciplines		WHERE discipline_name LIKE @discipline_name);
+DECLARE @teacher				AS	SMALLINT		=	(SELECT teacher_id			FROM Teachers		WHERE last_name = @teacher_last_name);
 DECLARE @date				AS	DATE			=	@start_date;
 DECLARE @number_of_lessons	AS	TINYINT		=	(SELECT number_of_lessons	FROM Disciplines	WHERE discipline_id=@discipline);
 DECLARE	@lesson				AS	TINYINT		=	1;
-DECLARE @time				AS	TIME(0)		=	N'18:30';
 
 WHILE (@lesson <= @number_of_lessons)
 BEGIN
@@ -55,4 +60,5 @@ END
 --VALUES
 --		(319,		1,			1,		N'2023-11-23', N'18:30', 1);
 
-SELECT * FROM Schedule;
+--SELECT * FROM Schedule;
+END
