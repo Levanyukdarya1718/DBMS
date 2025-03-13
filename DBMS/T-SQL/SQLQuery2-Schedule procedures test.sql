@@ -11,8 +11,12 @@ GO
 --EXEC @salary = sp_CountTeachersMonthSalary N'Ковтун',	2024,	06;
 --PRINT (@salary);
 
+--DELETE FROM Schedule;
 --SELECT * FROM Schedule;
 EXEC sp_ScheduleForBaseStacionarGroup N'PV_319', N'Процедурное программирование%', 'Ковтун', N'2023-11-23', '18:30',4,2,1;
 EXEC sp_ScheduleForBaseStacionarGroup N'PV_319', N'Hardware%', N'Кобылинский', N'2023-11-25', '18:30', 6, 2,0;
 
-EXEC sp_PrintScheduleForGroup N'PV_319' 
+
+EXEC sp_PrintScheduleForGroup N'PV_319';
+
+--SELECT * FROM DaysOFF;

@@ -1,7 +1,8 @@
 USE PV_319_Import
+SET DATEFIRST 1;
 GO
 
-CREATE PROCEDURE sp_PrintScheduleForGroup
+ALTER PROCEDURE sp_PrintScheduleForGroup
 	@group_name			NVARCHAR(16),
 	@discipline_name		NVARCHAR(150)=N' '
 AS
@@ -23,5 +24,6 @@ BEGIN
 	AND		teacher			=	teacher_id
 	AND		group_name		=	@group_name
 	AND		discipline_name	LIKE 	IIF(@discipline_name = NULL, N' ', discipline_name)
+	ORDER BY [date]
 	;
 END

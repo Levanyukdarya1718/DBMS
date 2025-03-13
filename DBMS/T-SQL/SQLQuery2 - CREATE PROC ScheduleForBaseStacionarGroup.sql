@@ -37,33 +37,42 @@ BEGIN
 	WHILE	(@lesson_number<@number_of_lessons)
 	BEGIN
 		PRINT(@date);
-		IF NOT EXISTS (SELECT lesson_id FROM Schedule WHERE [group] = @group AND discipline = @discipline AND [date] = @date AND [time] = @time)
+		IF (NOT EXISTS (SELECT [date] FROM DaysOFF WHERE [date]=@date))
 		BEGIN
-			PRINT(DATENAME(WEEKDAY,@date));
-			PRINT (DATEPART(WEEKDAY,@date));
+			IF NOT EXISTS (SELECT lesson_id FROM Schedule WHERE [group] = @group AND discipline = @discipline AND [date] = @date AND [time] = @time)
+			BEGIN
+				PRINT(DATENAME(WEEKDAY,@date));
+				PRINT (DATEPART(WEEKDAY,@date));
+				PRINT(@lesson_number+1);
+				PRINT(@time);
+				PRINT('Inserted');
+				INSERT Schedule
+					([group],discipline,teacher,[date],[time],spent)
+				VALUES (@group,@discipline,@teacher,@date, @time,IIF(@date<GETDATE(),1,0))
+			END
+			SET	@lesson_number = @lesson_number+1;
 			PRINT(@lesson_number+1);
-			PRINT(@time);
-			PRINT('Inserted');
-			INSERT Schedule
-				([group],discipline,teacher,[date],[time],spent)
-			VALUES (@group,@discipline,@teacher,@date, @time,IIF(@date<GETDATE(),1,0))
-		END
-		SET	@lesson_number = @lesson_number+1;
-		PRINT(@lesson_number+1);
-		PRINT(DATEADD(MINUTE, 95,@time));
-		IF NOT EXISTS (SELECT lesson_id FROM Schedule WHERE [group] = @group AND discipline = @discipline AND [date] = @date AND [time] = DATEADD(MINUTE,95,@time))
-		BEGIN
-			PRINT(DATENAME(WEEKDAY,@date));
-			PRINT (DATEPART(WEEKDAY,@date));
-			PRINT(@lesson_number+1);
-			PRINT(DATEADD(MINUTE,95,@time));
-			PRINT('Inserted');
+			PRINT(DATEADD(MINUTE, 95,@time));
+			
+			IF NOT EXISTS (SELECT lesson_id FROM Schedule WHERE [group] = @group AND discipline = @discipline AND [date] = @date AND [time] = DATEADD(MINUTE,95,@time))
+			BEGIN
+				PRINT(DATENAME(WEEKDAY,@date));
+				PRINT (DATEPART(WEEKDAY,@date));
+				PRINT(@lesson_number+1);
+				PRINT(DATEADD(MINUTE,95,@time));
+				
 
-			INSERT Schedule
-				([group],discipline,teacher,[date],[time],spent)
-			VALUES (@group,@discipline,@teacher,@date, DATEADD(MINUTE,95,@time),IIF(@date<GETDATE(),1,0))
+				INSERT Schedule
+					([group],discipline,teacher,[date],[time],spent)
+				VALUES (@group,@discipline,@teacher,@date, DATEADD(MINUTE,95,@time),IIF(@date<GETDATE(),1,0))
+			END
+			SET	@lesson_number = @lesson_number+1;
+		END 
+		ELSE
+		BEGIN
+			PRINT(@date);
+			PRINT(N'Holiday');
 		END
-		SET	@lesson_number = @lesson_number+1;
 		PRINT('-----------------------------------------');
 		PRINT (DATEPART (WEEKDAY,@date));
 		PRINT (@alternating_day);

@@ -11,9 +11,10 @@ BEGIN
 		@start_date	AS DATE		= dbo.GetHolidaysStartDate(@name, @year),
 		@holiday_id	AS TINYINT	= dbo.GetHolidayID(@name),
 		@duration	AS TINYINT	= dbo.GetHolidaysDuration(@name);
+
 		
-		PRINT(@start_date);
-		PRINT(@duration);
+		--PRINT(@start_date);
+	--	PRINT(@duration);
 		DECLARE
 		@date	AS	DATE = @start_date,
 		@day	AS	TINYINT =0;

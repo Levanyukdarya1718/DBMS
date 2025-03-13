@@ -88,6 +88,12 @@
           <AssociatedConnUserName />
           <FullPath>SQLQuery3-CREATE TABLE Salary.sql</FullPath>
         </FileNode>
+        <FileNode Name="SQLQuery7-CREATE FROCEDURE sp_AddAllHoldaysFor.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-B06BQ3L\SQLEXPRESS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-B06BQ3L\SQLEXPRESS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>SQLQuery7-CREATE FROCEDURE sp_AddAllHoldaysFor.sql</FullPath>
+        </FileNode>
         <FileNode Name="SQLQuery7-CREATE PROCEDURE AddHolidays.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-B06BQ3L\SQLEXPRESS:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-B06BQ3L\SQLEXPRESS</AssociatedConnSrvName>
